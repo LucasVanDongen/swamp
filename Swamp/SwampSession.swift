@@ -351,10 +351,14 @@ open class SwampSession: SwampTransportDelegate {
         self.sendMessage(AbortSwampMessage(details: [:], reason: "wamp.error.system_shutdown"))
         self.transport.disconnect("No challenge delegate found.")
     }
-
+    
     fileprivate func sendMessage(_ message: SwampMessage){
         let marshalledMessage = message.marshal()
-        let data = self.serializer!.pack(marshalledMessage as [Any])!
+        guard let serializer = self.serializer, let data = serializer.pack(marshalledMessage as [Any]) else {
+            print("I don't care I just don't crash here")
+            return
+        }
+        
         self.transport.sendData(data)
     }
 
