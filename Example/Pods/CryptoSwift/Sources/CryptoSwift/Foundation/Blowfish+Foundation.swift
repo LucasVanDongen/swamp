@@ -1,5 +1,5 @@
 //
-//  RandomAccessCryptor.swift
+//  Blowfish+Foundation.swift
 //  CryptoSwift
 //
 //  Copyright (C) 2014-2017 Krzyżanowski <marcin@krzyzanowskim.com>
@@ -14,12 +14,15 @@
 //  - This notice may not be removed or altered from any source or binary distribution.
 //
 
-/// Random access cryptor
-public protocol RandomAccessCryptor: Updatable {
-    /// Seek to position in file, if block mode allows random access.
-    ///
-    /// - parameter to: new value of counter
-    ///
-    /// - returns: true if seek succeed
-    @discardableResult mutating func seek(to: Int) -> Bool
+import Foundation
+
+extension Blowfish {
+
+    public convenience init(key: String, iv: String, blockMode: BlockMode = .CBC, padding: Padding = PKCS7()) throws {
+        guard let kkey = key.data(using: String.Encoding.utf8, allowLossyConversion: false)?.bytes, let iiv = iv.data(using: String.Encoding.utf8, allowLossyConversion: false)?.bytes else {
+            throw Error.invalidKeyOrInitializationVector
+        }
+
+        try self.init(key: kkey, iv: iiv, blockMode: blockMode, padding: padding)
+    }
 }

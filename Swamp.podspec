@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'Swamp'
-  s.version          = '0.2.0'
+  s.version          = '0.2.1'
   s.summary          = 'WAMP protocol implementation in swift'
 
 # This description is used to generate tags and improve search results.
@@ -39,5 +39,5 @@ the WAMP WebSocket subprotocol implemented purely in Swift using Starscream, Swi
   # s.frameworks = 'UIKit', 'MapKit'
   s.dependency 'SwiftyJSON', '~>3.1.0'
   s.dependency 'Starscream', '~>2.0.0'
-  s.dependency 'CryptoSwift', '~>0.6.0'
+  s.dependency 'CryptoSwift', '~>0.7.1'
 end

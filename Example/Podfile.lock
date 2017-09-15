@@ -1,13 +1,13 @@
 PODS:
-  - CryptoSwift (0.6.0)
+  - CryptoSwift (0.7.1)
   - Nimble (5.0.0)
   - Quick (0.10.0)
-  - Starscream (2.0.0)
-  - Swamp (0.1.2):
-    - CryptoSwift (~> 0.6.0)
+  - Starscream (2.0.4)
+  - Swamp (0.2.1):
+    - CryptoSwift (~> 0.7.1)
     - Starscream (~> 2.0.0)
     - SwiftyJSON (~> 3.1.0)
-  - SwiftyJSON (3.1.0)
+  - SwiftyJSON (3.1.4)
 
 DEPENDENCIES:
   - Nimble (~> 5.0.0)
@@ -16,16 +16,16 @@ DEPENDENCIES:
 
 EXTERNAL SOURCES:
   Swamp:
-    :path: ../
+    :path: "../"
 
 SPEC CHECKSUMS:
-  CryptoSwift: 4a599b7241b8d3b857d6e2c28867d0bd5d1aae24
+  CryptoSwift: c290ac8976cf28c52c8b88bfe2c58c0302a0e0c0
   Nimble: 56fc9f5020effa2206de22c3dd910f4fb011b92f
   Quick: 5d290df1c69d5ee2f0729956dcf0fd9a30447eaa
-  Starscream: 947c865596f0d6bb3f0203fee23228ed2d471468
-  Swamp: 0eccf7f7d38e71d67aa7c251664f6e13b8604923
-  SwiftyJSON: 29b9f2a64f118c07e691667c2ba1efe536acfe0b
+  Starscream: df5974ee928b157c8eda8af8de7c620276b7dfcc
+  Swamp: 067bdcf8033b261d523e965fb12ba039c4925170
+  SwiftyJSON: c2842d878f95482ffceec5709abc3d05680c0220
 
 PODFILE CHECKSUM: e3b6ef0c1caa7b4561126a7c54ecbe4decc7f9bc
 
-COCOAPODS: 1.1.0.rc.2
+COCOAPODS: 1.2.1

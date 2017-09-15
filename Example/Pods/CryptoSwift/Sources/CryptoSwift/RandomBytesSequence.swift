@@ -1,5 +1,5 @@
 //
-//  ZeroPadding.swift
+//  RandomBytesSequence.swift
 //  CryptoSwift
 //
 //  Copyright (C) 2014-2017 Krzyżanowski <marcin@krzyzanowskim.com>
@@ -14,27 +14,38 @@
 //  - This notice may not be removed or altered from any source or binary distribution.
 //
 
-/// All the bytes that are required to be padded are padded with zero.
-/// Zero padding may not be reversible if the original file ends with one or more zero bytes.
-public struct ZeroPadding: Padding {
+#if os(Linux) || os(Android) || os(FreeBSD)
+    import Glibc
+#else
+    import Darwin
+#endif
 
-    public init() {
-    }
+struct RandomBytesSequence: Sequence {
+    let size: Int
 
-    public func add(to bytes: Array<UInt8>, blockSize: Int) -> Array<UInt8> {
-        let paddingCount = blockSize - (bytes.count % blockSize)
-        if paddingCount > 0 {
-            return bytes + Array<UInt8>(repeating: 0, count: paddingCount)
-        }
-        return bytes
-    }
-
-    public func remove(from bytes: Array<UInt8>, blockSize: Int?) -> Array<UInt8> {
-        for (idx, value) in bytes.reversed().enumerated() {
-            if value != 0 {
-                return Array(bytes[0 ..< bytes.count - idx])
+    func makeIterator() -> AnyIterator<UInt8> {
+        var count = 0
+        return AnyIterator<UInt8>.init({ () -> UInt8? in
+            if count >= self.size {
+                return nil
             }
-        }
-        return bytes
+            count = count + 1
+
+            #if os(Linux) || os(Android) || os(FreeBSD)
+                let fd = open("/dev/urandom", O_RDONLY)
+                if fd <= 0 {
+                    return nil
+                }
+
+                var value: UInt8 = 0
+                let result = read(fd, &value, MemoryLayout<UInt8>.size)
+                precondition(result == 1)
+
+                close(fd)
+                return value
+            #else
+                return UInt8(arc4random_uniform(UInt32(UInt8.max) + 1))
+            #endif
+        })
     }
 }
